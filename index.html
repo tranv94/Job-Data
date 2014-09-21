@@ -28,6 +28,19 @@
 				margin:0;
 				padding:0;
 			}
+			div.tooltip {
+			  position: absolute;
+			  text-align: center;
+			  width: 150px;
+			  height: 25px;
+			  padding: 2px;
+			  font-size: 10px;
+			  background: #FFFFE0;
+			  border: 1px;
+			  border-radius: 8px;
+			  pointer-events: none;
+			}
+
 		</style>
 	</head>
 	<body>
@@ -128,7 +141,7 @@
 						    d3.select(this).transition().duration(300).style("opacity", 1);
 						    div.transition().duration(300)
 						    .style("opacity", 1)
-						    div.text(d.properties.value)
+						    div.text(d.properties.name + ":"+ "\n" + d.properties.value)
 						    .style("left", (d3.event.pageX) + "px")
 						    .style("top", (d3.event.pageY -30) + "px");
 						  })
