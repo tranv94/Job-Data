@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<title>D3: Setting path fills dynamically to generate a choropleth</title>
 		<script type="text/javascript" src="d3.v3.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<style type="text/css">
 			.btn-group{
 				position: absolute;
@@ -35,8 +36,6 @@
       <button type="button" class="btn btn-default">Job 2</button>
       <button type="button" class="btn btn-default">Job 3</button>
     </div>
-
-
 		<script type="text/javascript">
 
 
@@ -65,9 +64,15 @@
 						.attr("height", h);
 
 			//Load in agriculture data
-			d3.json("ADD GET REQUEST HERE", function(data) {
+			// d3.csv("us-ag-productivity-2004.csv", function(data) {
 
-				//Set input domain for color scale
+			// 	//Set input domain for color scale
+			// 	color.domain([
+			// 		d3.min(data, function(d) { return d.value; }),
+			// 		d3.max(data, function(d) { return d.value; })
+			// 	]);
+					$.getJSON('https://jsonp.nodejitsu.com/?callback=?&url=http://38.110.19.68/jobmapping.php?action=get_job_data', function (data) {
+						console.log(data);
 				color.domain([
 					d3.min(data, function(d) { return d.value; }),
 					d3.max(data, function(d) { return d.value; })
@@ -85,6 +90,7 @@
 
 						//Grab data value, and convert from string to float
 						var dataValue = parseFloat(data[i].value);
+						console.log(parseInt(json.value,0));
 
 						//Find the corresponding state inside the GeoJSON
 						for (var j = 0; j < json.features.length; j++) {
@@ -102,6 +108,7 @@
 							}
 						}
 					}
+
 
 					//Bind data and create one path per GeoJSON feature
 					svg.selectAll("path")
@@ -126,5 +133,6 @@
 
 			});
 		</script>
+
 	</body>
 </html>
