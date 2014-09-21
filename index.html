@@ -37,17 +37,16 @@
       <button type="button" class="btn btn-default">Job 3</button>
     </div>
 		<script type="text/javascript">
-
-
+			var div = d3.select("body").append("div")
+		    .attr("class", "tooltip")
+		    .style("opacity", 0);
 			//Width and height
 			var w = 1000;
 			var h = 700;
-
 			//Define map projection
 			var projection = d3.geo.albersUsa()
 								   .translate([w/2, h/2])
 								   .scale([1000]);
-
 			//Define path generator
 			var path = d3.geo.path()
 							 .projection(projection);
@@ -124,7 +123,15 @@
 					   			//If value is undefined…
 						   		return "#ccc";
 					   		}
-					   });
+					   	})
+					   	.on("mouseover", function(d) {
+						    d3.select(this).transition().duration(300).style("opacity", 1);
+						    div.transition().duration(300)
+						    .style("opacity", 1)
+						    div.text(d.properties.value)
+						    .style("left", (d3.event.pageX) + "px")
+						    .style("top", (d3.event.pageY -30) + "px");
+						  })
 					    function getColor(d) {
 					    return d > 1000 ? '#800026' :
 					           d > 500  ? '#BD0026' :
@@ -134,11 +141,12 @@
 					           d > 20   ? '#FEB24C' :
 					           d > 10   ? '#FED976' :
 					                      '#FFEDA0';
-					}
+					};
 
 				});
 
 			});
+
 		</script>
 
 	</body>
