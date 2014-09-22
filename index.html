@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>D3: Setting path fills dynamically to generate a choropleth</title>
+		<title>Job-Plotter</title>
 		<script type="text/javascript" src="d3.v3.js"></script>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<style type="text/css">
@@ -40,7 +40,6 @@
 			  border-radius: 8px;
 			  pointer-events: none;
 			}
-
 		</style>
 	</head>
 	<body>
@@ -50,9 +49,11 @@
       <button type="button" class="btn btn-default">Job 3</button>
     </div>
 		<script type="text/javascript">
+		// div is appended to body when a state is moused over
 			var div = d3.select("body").append("div")
 		    .attr("class", "tooltip")
 		    .style("opacity", 0);
+
 			//Width and height
 			var w = 1000;
 			var h = 700;
@@ -75,15 +76,7 @@
 						.attr("width", w)
 						.attr("height", h);
 
-			//Load in agriculture data
-			// d3.csv("us-ag-productivity-2004.csv", function(data) {
-
-			// 	//Set input domain for color scale
-			// 	color.domain([
-			// 		d3.min(data, function(d) { return d.value; }),
-			// 		d3.max(data, function(d) { return d.value; })
-			// 	]);
-					$.getJSON('https://jsonp.nodejitsu.com/?callback=?&url=http://38.110.19.68/jobmapping.php?action=get_job_data', function (data) {
+			$.getJSON('https://jsonp.nodejitsu.com/?callback=?&url=http://38.110.19.68/jobmapping.php?action=get_job_data', function (data) {
 
 						color.domain([
 							d3.min(data, function(d) { return d.value; }),
